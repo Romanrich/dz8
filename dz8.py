@@ -25,37 +25,37 @@ print("\n{:=^50}\n".format("-Birthday-"))
 
 
 
-def get_birthday_per_week(users_list):
+def get_birthday_per_week(users):
     current_month = date.today().month
 
     result = {}
 
-    for person in users_list:
+    for person in users:
 
-        Month, Day = person['birthday'].month, person['birthday'].day
+        month, day = person['birthday'].month, person['birthday'].day
         cur_year = date.today().year
         cur_day = date.today().day
-        birthday = date(cur_year, Month, Day)
-        if Month != current_month:
+        birthday = date(cur_year, month, day)
+        if month != current_month:
             print("***")
             continue
 
-        print(f'My name is {person["name"]} and my birthday {Month}-{Day}')
+        print(f'My name is {person["name"]} and my birthday {month}-{day}')
 
         print(f"Date of celebration - {birthday}")
         print(f"{birthday.strftime('%A %d-%m-%y')}")
         week_day = birthday.strftime('%A')
-        weeks_list = calendar.monthcalendar(cur_year, Month)
+        weeks = calendar.monthcalendar(cur_year, month)
 
         print()
-        for week in weeks_list:
+        for week in weeks:
             if cur_day in week:
                 cur_week = week
-                ind = weeks_list.index(week)
-                pre_week = weeks_list[ind-1]
-                working_week = pre_week[-2:]+cur_week[0:-2]
+                ind = weeks.index(week)
+                pre_week = weeks[ind-1]
+                working_week = pre_week[-2:]+cur_week[:-2]
 
-                if Day not in working_week:
+                if day not in working_week:
                     print("Not this time")
                     continue
 
@@ -63,7 +63,7 @@ def get_birthday_per_week(users_list):
                 print(f"Previos week - {pre_week}")
                 print(f"Working week - {working_week}")
 
-                if Day in working_week[0:2]:
+                if day in working_week[:2]:
                     if 'Monday' in result:
                         result['Monday'].append(person['name'])
                     else:
